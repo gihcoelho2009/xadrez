@@ -54,27 +54,50 @@
                 this.elemento = elemento;
                 this.tamanho = 8;
                 this.casas = [];
-
             }
-            criarCasas( ) {
+
+            criarCasas() {
                 for (let linha = 0; linha < this.tamanho; linha ++) {
-                    this.casas [linha] = [];
-                    for(let coluna=0; coluna < this.tamanho;coluna++) {
-                        const casa = document.createElement ("div");
+                    this.casas[linha] = [];
+                    for (let coluna=0; coluna < this.tamanho; coluna++) {
+                        const casa = document.createElement("div");
                         casa.classList.add("casa");
-                        (linha+coluna) % 2 === 0? casa.classList.add("clara") : casa.classList.add("escura")
-                        casa.dataset.linha =  linha;
-                        casa.dataset.coluna =  coluna;
+                        (linha + coluna) % 2 === 0 ? casa.classList.add("clara") : casa.classList.add("escura")
+                        casa.dataset.linha = linha;
+                        casa.dataset.coluna = coluna;
                         this.elemento.appendChild(casa);
-                        this.casas [linha][coluna] = casa 
-
-
+                        this.casas[linha][coluna] = casa;
                     }
                 }
             }
+
+            adicionarPecas(){
+                const torreBranca = new Torre('branca');
+                torreBranca.renderizar(this.casas[0][0])
+            }
         }
+
+        class Peca {
+            constructor(nome, simbolo, cor){
+                this.nome = nome;
+                this.simbolo = simbolo;
+                this.cor = cor;
+            }
+
+            renderizar(casa) {
+                casa.textContent = this.simbolo
+            }
+        }
+
+        class Torre extends Peca {
+            constructor(cor) {
+                super('Torre', cor === 'branca' ? '♖' : '♜', cor);
+            }
+        }
+
         const tabuleiro = new Tabuleiro(document.getElementById("tabuleiro"));
-        tabuleiro.criarCasas()
+        tabuleiro.criarCasas();
+        tabuleiro.adicionarPecas();
     </script>
 </body>
 
